@@ -37,5 +37,5 @@ jobs:
   - task: smoke_test
     file: apps-movie-fun-code-spring-boot/ci/tasks/smoke-test.yml
     params:
-      ATTENDEE_SERVICE_URL: https://attendee-service-grouchy-lynx.apps.cumuluslabs.io
+      MOVIE_FUN_URL: https://attendee-service-grouchy-lynx.apps.cumuluslabs.io
 

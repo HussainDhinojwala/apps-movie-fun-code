@@ -8,11 +8,11 @@ image_resource:
     tag: "8"
 
 inputs:
-- name: attendee-service-source
+- name: apps-movie-fun-code-spring-boot
 
 outputs:
 - name: package-output
 
 run:
-  path: attendee-service-source/ci/tasks/package.sh
+  path: apps-movie-fun-code-spring-boot/ci/tasks/package.sh
 
