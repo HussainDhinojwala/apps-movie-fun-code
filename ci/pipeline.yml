@@ -1,0 +1,41 @@
+---
+resources:
+- name: apps-movie-fun-code-spring-boot
+  type: git
+  source:
+    uri: https://github.com/HussainDhinojwala/apps-movie-fun-code.git
+    branch: spring-boot
+
+- name: deploy-movie-fun-code
+  type: cf
+  source:
+    api: https://api.system.cumuluslabs.io
+    username: {{cf-user}}
+    password: {{cf-password}}
+    organization: hdhinojwala-PAL-JAN22
+    space: sandbox
+    skip_cert_check: false
+
+jobs:
+- name: deploy
+  public: true
+  plan:
+  - get: apps-movie-fun-code-spring-boot
+  - task: package
+    file: apps-movie-fun-code-spring-boot/ci/tasks/package.yml
+  - put: deploy-movie-fun-code
+    params:
+      manifest: apps-movie-fun-code-spring-boot/manifest.yml
+      path: package-output/movie-fun-code.jar
+
+- name: smoke_test
+  public: true
+  plan:
+  - get: apps-movie-fun-code-spring-boot
+    trigger: true
+    passed: [deploy]
+  - task: smoke_test
+    file: apps-movie-fun-code-spring-boot/ci/tasks/smoke-test.yml
+    params:
+      ATTENDEE_SERVICE_URL: https://attendee-service-grouchy-lynx.apps.cumuluslabs.io
+
