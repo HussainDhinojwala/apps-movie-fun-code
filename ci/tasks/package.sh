@@ -4,7 +4,7 @@ set -e +x
 
 pushd apps-movie-fun-code-spring-boot
   echo "Packaging JAR"
-  ./mvnw clean package -DskipTests
+  ./mvn clean package -DskipTests
 popd
 
 jar_count=`find apps-movie-fun-code-spring-boot/target -type f -name *.jar | wc -l`
